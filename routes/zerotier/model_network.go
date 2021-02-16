@@ -17,7 +17,7 @@ import (
 // Network Network object
 type Network struct {
 	Id *string `json:"id,omitempty"`
-	Clock *int32 `json:"clock,omitempty"`
+	Clock *int64 `json:"clock,omitempty"`
 	Config *NetworkConfig `json:"config,omitempty"`
 	Description *string `json:"description,omitempty"`
 	RulesSource *string `json:"rulesSource,omitempty"`
@@ -80,9 +80,9 @@ func (o *Network) SetId(v string) {
 }
 
 // GetClock returns the Clock field value if set, zero value otherwise.
-func (o *Network) GetClock() int32 {
+func (o *Network) GetClock() int64 {
 	if o == nil || o.Clock == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Clock
@@ -90,7 +90,7 @@ func (o *Network) GetClock() int32 {
 
 // GetClockOk returns a tuple with the Clock field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Network) GetClockOk() (*int32, bool) {
+func (o *Network) GetClockOk() (*int64, bool) {
 	if o == nil || o.Clock == nil {
 		return nil, false
 	}
@@ -107,7 +107,7 @@ func (o *Network) HasClock() bool {
 }
 
 // SetClock gets a reference to the given int32 and assigns it to the Clock field.
-func (o *Network) SetClock(v int32) {
+func (o *Network) SetClock(v int64) {
 	o.Clock = &v
 }
 

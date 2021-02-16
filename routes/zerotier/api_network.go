@@ -13,6 +13,7 @@ package openapi
 import (
 	"bytes"
 	_context "context"
+	"fmt"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
@@ -536,6 +537,7 @@ func (a *NetworkApiService) UpdateNetworkExecute(r ApiUpdateNetworkRequest) (Net
 		return localVarReturnValue, nil, executionError
 	}
 
+	fmt.Printf("request: %v\n", req.Body)
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		executionError.error = err.Error()

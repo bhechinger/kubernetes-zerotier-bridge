@@ -19,7 +19,7 @@ type NetworkConfig struct {
 	// Network ID
 	Id *string `json:"id,omitempty"`
 	// Time the network was created
-	CreationTime *int32 `json:"creationTime,omitempty"`
+	CreationTime *int64 `json:"creationTime,omitempty"`
 	// Array of network capabilities
 	Capabilities *[]map[string]interface{} `json:"capabilities,omitempty"`
 	// Enable broadcast packets on the network
@@ -27,11 +27,11 @@ type NetworkConfig struct {
 	// Range of IP addresses for the auto assign pool
 	IpAssignmentPools *[]IPRange `json:"ipAssignmentPools,omitempty"`
 	// Time the network was last modified
-	LastModified *int32 `json:"lastModified,omitempty"`
+	LastModified *int64 `json:"lastModified,omitempty"`
 	// MTU to set on the client virtual network adapter
-	Mtu *int32 `json:"mtu,omitempty"`
+	Mtu *int64 `json:"mtu,omitempty"`
 	// Maximum number of recipients per multicast or broadcast. Warning - Setting this to 0 will disable IPv4 communication on your network!
-	MulticastLimit *int32 `json:"multicastLimit,omitempty"`
+	MulticastLimit *int64 `json:"multicastLimit,omitempty"`
 	Name *string `json:"name,omitempty"`
 	// Whether or not the network is private.  If false, members will *NOT* need to be authorized to join.
 	Private *bool `json:"private,omitempty"`
@@ -92,9 +92,9 @@ func (o *NetworkConfig) SetId(v string) {
 }
 
 // GetCreationTime returns the CreationTime field value if set, zero value otherwise.
-func (o *NetworkConfig) GetCreationTime() int32 {
+func (o *NetworkConfig) GetCreationTime() int64 {
 	if o == nil || o.CreationTime == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreationTime
@@ -102,7 +102,7 @@ func (o *NetworkConfig) GetCreationTime() int32 {
 
 // GetCreationTimeOk returns a tuple with the CreationTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NetworkConfig) GetCreationTimeOk() (*int32, bool) {
+func (o *NetworkConfig) GetCreationTimeOk() (*int64, bool) {
 	if o == nil || o.CreationTime == nil {
 		return nil, false
 	}
@@ -118,8 +118,8 @@ func (o *NetworkConfig) HasCreationTime() bool {
 	return false
 }
 
-// SetCreationTime gets a reference to the given int32 and assigns it to the CreationTime field.
-func (o *NetworkConfig) SetCreationTime(v int32) {
+// SetCreationTime gets a reference to the given int64 and assigns it to the CreationTime field.
+func (o *NetworkConfig) SetCreationTime(v int64) {
 	o.CreationTime = &v
 }
 
@@ -220,9 +220,9 @@ func (o *NetworkConfig) SetIpAssignmentPools(v []IPRange) {
 }
 
 // GetLastModified returns the LastModified field value if set, zero value otherwise.
-func (o *NetworkConfig) GetLastModified() int32 {
+func (o *NetworkConfig) GetLastModified() int64 {
 	if o == nil || o.LastModified == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LastModified
@@ -230,7 +230,7 @@ func (o *NetworkConfig) GetLastModified() int32 {
 
 // GetLastModifiedOk returns a tuple with the LastModified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NetworkConfig) GetLastModifiedOk() (*int32, bool) {
+func (o *NetworkConfig) GetLastModifiedOk() (*int64, bool) {
 	if o == nil || o.LastModified == nil {
 		return nil, false
 	}
@@ -246,15 +246,15 @@ func (o *NetworkConfig) HasLastModified() bool {
 	return false
 }
 
-// SetLastModified gets a reference to the given int32 and assigns it to the LastModified field.
-func (o *NetworkConfig) SetLastModified(v int32) {
+// SetLastModified gets a reference to the given int64 and assigns it to the LastModified field.
+func (o *NetworkConfig) SetLastModified(v int64) {
 	o.LastModified = &v
 }
 
 // GetMtu returns the Mtu field value if set, zero value otherwise.
-func (o *NetworkConfig) GetMtu() int32 {
+func (o *NetworkConfig) GetMtu() int64 {
 	if o == nil || o.Mtu == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Mtu
@@ -262,7 +262,7 @@ func (o *NetworkConfig) GetMtu() int32 {
 
 // GetMtuOk returns a tuple with the Mtu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NetworkConfig) GetMtuOk() (*int32, bool) {
+func (o *NetworkConfig) GetMtuOk() (*int64, bool) {
 	if o == nil || o.Mtu == nil {
 		return nil, false
 	}
@@ -278,15 +278,15 @@ func (o *NetworkConfig) HasMtu() bool {
 	return false
 }
 
-// SetMtu gets a reference to the given int32 and assigns it to the Mtu field.
-func (o *NetworkConfig) SetMtu(v int32) {
+// SetMtu gets a reference to the given int64 and assigns it to the Mtu field.
+func (o *NetworkConfig) SetMtu(v int64) {
 	o.Mtu = &v
 }
 
 // GetMulticastLimit returns the MulticastLimit field value if set, zero value otherwise.
-func (o *NetworkConfig) GetMulticastLimit() int32 {
+func (o *NetworkConfig) GetMulticastLimit() int64 {
 	if o == nil || o.MulticastLimit == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MulticastLimit
@@ -294,7 +294,7 @@ func (o *NetworkConfig) GetMulticastLimit() int32 {
 
 // GetMulticastLimitOk returns a tuple with the MulticastLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NetworkConfig) GetMulticastLimitOk() (*int32, bool) {
+func (o *NetworkConfig) GetMulticastLimitOk() (*int64, bool) {
 	if o == nil || o.MulticastLimit == nil {
 		return nil, false
 	}
@@ -310,8 +310,8 @@ func (o *NetworkConfig) HasMulticastLimit() bool {
 	return false
 }
 
-// SetMulticastLimit gets a reference to the given int32 and assigns it to the MulticastLimit field.
-func (o *NetworkConfig) SetMulticastLimit(v int32) {
+// SetMulticastLimit gets a reference to the given int64 and assigns it to the MulticastLimit field.
+func (o *NetworkConfig) SetMulticastLimit(v int64) {
 	o.MulticastLimit = &v
 }
 
