@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+    name: {{ include "kubernetes-zerotier-bridge.serviceAccountName" . }}
+    namespace: default
+roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: {{ include "kubernetes-zerotier-bridge.serviceAccountName" . }}
+subjects:
+    - kind: ServiceAccount
+      name: {{ include "kubernetes-zerotier-bridge.serviceAccountName" . }}
+      namespace: default

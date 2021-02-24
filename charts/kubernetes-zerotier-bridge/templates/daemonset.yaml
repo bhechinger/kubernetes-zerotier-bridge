@@ -23,6 +23,7 @@ spec:
         service: {{ .Values.zerotier_config.zerotier_label_service }}
         environment: {{ .Values.environment }}
     spec:
+      serviceAccountName: {{ include "kubernetes-zerotier-bridge.serviceAccountName" . }}
       hostNetwork: true
       containers:
       - name: zerotier-{{ .Values.zerotier_config.zerotier_network_name }}-bridge

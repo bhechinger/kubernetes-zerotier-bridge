@@ -1,7 +1,14 @@
+FROM golang:1.15-alpine AS go-build
+RUN mkdir /app
+ADD manage/ /app/
+WORKDIR /app
+
+RUN CGO_ENABLED=0 go build -ldflags "-w"
+
 FROM alpine
 MAINTAINER Juan Manuel Vera - verajm@gmail.com
 
-ENV ZEROTIER_VERSION=1.6.3
+ENV ZEROTIER_VERSION=1.6.4
 
 RUN set -eux; \
     apk add --no-cache \
@@ -33,11 +40,12 @@ RUN set -eux; \
     rc-update add iptables ;\
     echo "tun" >> /etc/modules
 
-
 COPY files/supervisor-zerotier.conf /etc/supervisor/supervisord.conf
 COPY files/entrypoint.sh /entrypoint.sh
+COPY --from=go-build /app/manage /usr/sbin/manage
 
 RUN chmod 755 /entrypoint.sh
+RUN chmod 755 /usr/sbin/manage
 
 VOLUME ["/var/lib/zerotier-one"]
 ENTRYPOINT ["/entrypoint.sh"]
