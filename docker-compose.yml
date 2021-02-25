@@ -4,10 +4,9 @@ services:
   zerotier:
     image: verajm/kubernetes-zerotier-bridge
     environment:
-      - NETWORK_IDS=A....B,C.......D,E.......F
+      - NETWORK_ID=A....B,C.......D,E.......F
       - ZTAUTHTOKEN=A.......................Z
       - AUTOJOIN=true
-      - ZTHOSTNAME=dummyhostname
     volumes:
       - /var/lib/zerotier-one:/var/lib/zerotier-one
     cap_add:

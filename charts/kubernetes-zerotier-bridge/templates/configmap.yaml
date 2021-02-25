@@ -8,7 +8,6 @@ metadata:
     network:    {{ .Values.zerotier_config.zerotier_network_name }}
     service:    {{ .Values.zerotier_config.zerotier_label_service }}
 data:
-  NETWORK-IDS:  {{ .Values.zerotier_config.zerotier_network_id }}
+  NETWORK-ID:   {{ .Values.zerotier_config.zerotier_network_id }}
   ZTAUTHTOKEN:  {{ .Values.zerotier_config.zerotier_api_accesstoken }}
   AUTOJOIN:     "{{ .Values.zerotier_config.zerotier_authorize_member }}"
-  ZTHOSTNAME:   "{{ .Values.environment }}_out"

@@ -38,16 +38,11 @@ spec:
                 fieldPath: status.hostIP
           - name: CONSUL
             value: $(HOST_IP):8500
-          - name: NETWORK_IDS
+          - name: NETWORK_ID
             valueFrom:
               configMapKeyRef:
                 name: zerotier-{{ .Values.environment }}-{{ .Release.Name }}
-                key: NETWORK-IDS
-          - name: ZTHOSTNAME
-            valueFrom:
-              configMapKeyRef:
-                name: zerotier-{{ .Values.environment }}-{{ .Release.Name }}
-                key: ZTHOSTNAME
+                key: NETWORK-ID
           - name: ZTAUTHTOKEN
             valueFrom:
               configMapKeyRef:
@@ -66,15 +61,12 @@ spec:
         - name: dev-net-tun
           mountPath: /dev/net/tun
         - name: ztdata
-          mountPath: {{ .Values.persistentVolume.mountPath }}
+          mountPath: /var/lib/zerotier-one/
       volumes:
       - name: dev-net-tun
         hostPath:
           path: /dev/net/tun
       - name: ztdata
-{{- if .Values.persistentVolume.enabled }}
-        persistentVolumeClaim:
-          claimName: ztdata
-{{- else }}
-        emptyDir: {}
-{{- end }}
+        hostPath:
+          path: /var/lib/zerotier-one/
+          type: DirectoryOrCreate

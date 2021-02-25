@@ -22,12 +22,11 @@ Since this docker image expects the subnetIDs as an env variable you need to use
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: zerotier-networks
+  name: zerotier-network
 data:
-  NETWORK_IDS: << your subnetid >>
+  NETWORK_ID: << your subnetid >>
   ZTAUTHTOKEN: << your token >>
   AUTOJOIN: true
-  ZTHOSTNAME: << desired hostname>>
 ---
 apiVersion: v1
 kind: Pod
@@ -38,25 +37,25 @@ spec:
     - name: ubernetes-zerotier-bridge
       image: << your registry >>
       env:
-      - name: NETWORK_IDS
+      - name: NETWORK_ID
         valueFrom:
           configMapKeyRef:
-            name: zerotier-networks
-            key: NETWORK_IDS 
+            name: zerotier-network
+            key: NETWORK_ID
       - name: ZTHOSTNAME
         valueFrom:
           configMapKeyRef:
-            name: zerotier-networks
+            name: zerotier-network
             key: ZTHOSTNAME 
       - name: ZTAUTHTOKEN
         valueFrom:
           configMapKeyRef:
-            name: zerotier-networks
+            name: zerotier-network
             key: ZTAUTHTOKEN 
       - name: AUTOJOIN
         valueFrom:
           configMapKeyRef:
-            name: zerotier-networks
+            name: zerotier-network
             key: AUTOJOIN 
       securityContext:
           privileged: true
@@ -86,7 +85,7 @@ Running this locally will let you test your ZT connection and also use it withou
 
 Modify docker compose file accordly.
 
-  - `NETWORK_IDS` Comma separated networkIDs.
+  - `NETWORK_ID` networkID.
   - `ZTAUTHTOKEN` Your network token, required to perform auto join and set hostname.
   - `AUTOJOIN` Automatically accept new host.
   - `ZTHOSTNAME` Hostname to identify this client. If not provided will keep it blank.

@@ -184,7 +184,7 @@ func main() {
 
 		nodeInterface = "eth0"       // We may need to find this
 		ztInterface   = "ztrtay6555" // We may need to find this
-		networkIDs    = os.Getenv("NETWORK_IDS")
+		networkID     = os.Getenv("NETWORK_ID")
 		ctx           = context.Background()
 		ztCtl         = newZTLocal()
 		ztStatus      = ztCtl.getZTStatus()
@@ -194,7 +194,7 @@ func main() {
 	)
 
 	log.Println("Joining Network")
-	ztCtl.joinNetwork(networkIDs)
+	ztCtl.joinNetwork(networkID)
 
 	// Set hostname
 	hostname, err := os.Hostname()
@@ -204,7 +204,7 @@ func main() {
 
 	log.Println("Creating Authorized Member")
 	if autoJoin == "true" {
-		ztClient.CreateAuthorizedMember(ctx, networkIDs, ztStatus.Address, hostname)
+		ztClient.CreateAuthorizedMember(ctx, networkID, ztStatus.Address, hostname)
 	}
 
 	// Get node IP so we can find ourselves in kube later
@@ -285,7 +285,7 @@ func main() {
 	log.Println("Acquiring lock")
 	lock.Lock(nil)
 
-	network, err := ztClient.GetNetwork(ctx, networkIDs)
+	network, err := ztClient.GetNetwork(ctx, networkID)
 	if err != nil {
 		log.Println("error:", err.Error())
 		return
