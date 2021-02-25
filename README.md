@@ -6,6 +6,10 @@ A Zerotier gateway to access your non-public k8s services thru ZT subnet
 
 ### Kubernetes
 
+## Prerequisites
+
+* A consul cluster with agents listening on the host (to be made optional)
+
 ## Helm chart to deploy a DaemonSet
 `helm repo add kubernetes-zerotier-bridge https://leunamnauj.github.io/kubernetes-zerotier-bridge/`
 
@@ -13,9 +17,10 @@ A Zerotier gateway to access your non-public k8s services thru ZT subnet
 
 `helm install --name kubernetes-zerotier-bridge kubernetes-zerotier-bridge/kubernetes-zerotier-bridge`
 
-**Note:** You are able to configure persistence setting `persistentVolume.enabled=true` and further storage parameters as needed.
-
 ## Single Deployment
+
+NOTE: This may not work anymore, untested.
+
 Since this docker image expects the subnetIDs as an env variable you need to use something like this
 ```
 ---
@@ -79,6 +84,9 @@ In order to route traffic to this POD have to add the proper rule on ZT Managed 
 
 
 ## Local Run
+
+NOTE: This is also probably broken.
+
 Running this locally will let you test your ZT connection and also use it without install ZT at all
 
 ### Usage
