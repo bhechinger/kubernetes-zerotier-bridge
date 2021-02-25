@@ -11,7 +11,10 @@ A Zerotier gateway to access your non-public k8s services thru ZT subnet
 * A consul cluster with agents listening on the host (to be made optional)
 
 ## Helm chart to deploy a DaemonSet
-`helm repo add kubernetes-zerotier-bridge https://leunamnauj.github.io/kubernetes-zerotier-bridge/`
+
+NOTE: This is way out of date. just checkout the repo and run helm directly from it for now.
+
+`Helm repo add kubernetes-zerotier-bridge https://leunamnauj.github.io/kubernetes-zerotier-bridge/`
 
 `helm repo update`
 
