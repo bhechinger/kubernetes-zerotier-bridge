@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/coreos/go-iptables/iptables"
+	"github.com/hashicorp/consul/api"
 	"github.com/lorenzosaino/go-sysctl"
 	"github.com/zerotier/go-ztcentral"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -47,7 +48,7 @@ type ZTStatus struct {
 
 func getIPFromInterface(ifaceName string) (string, error) {
 	var (
-		addresses []net.Addr
+		addresses  []net.Addr
 		maxRetries int
 	)
 
@@ -189,6 +190,7 @@ func main() {
 		ztStatus      = ztCtl.getZTStatus()
 		ztClient      = ztcentral.NewClient(os.Getenv("ZTAUTHTOKEN"))
 		autoJoin      = os.Getenv("AUTOJOIN")
+		consul        = os.Getenv("CONSUL")
 	)
 
 	log.Println("Joining Network")
@@ -276,6 +278,13 @@ func main() {
 
 	// update zerotier routing table
 
+	// get consul client so we can do locking
+	client, err := api.NewClient(&api.Config{Address: consul})
+	lock, err := client.LockKey("zerotier-route-table/1")
+
+	log.Println("Acquiring lock")
+	lock.Lock(nil)
+
 	network, err := ztClient.GetNetwork(ctx, networkIDs)
 	if err != nil {
 		log.Println("error:", err.Error())
@@ -287,6 +296,7 @@ func main() {
 		if network.Config.Routes[idx].Target == podCIDR {
 			network.Config.Routes[idx].Via = viaIP
 			routeUpdated = true
+			log.Println("Found route entry, updating")
 		}
 	}
 
@@ -297,6 +307,7 @@ func main() {
 			Via:    viaIP,
 		}
 		network.Config.Routes = append(network.Config.Routes, newRoute)
+		log.Println("No existing route entry, adding new route")
 	}
 
 	_, err = ztClient.UpdateNetwork(ctx, network)
@@ -304,6 +315,9 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
+	log.Println("Releasing lock")
+	lock.Unlock()
 
 	err = sysctl.Set("net.ipv4.ip_forward", "1")
 	ipTables, err := iptables.New()

@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	github.com/coreos/go-iptables v0.5.0
+	github.com/hashicorp/consul/api v1.8.1
 	github.com/lorenzosaino/go-sysctl v0.1.1
 	github.com/zerotier/go-ztcentral v0.2.0
 	golang.org/x/oauth2 v0.0.0-20210220000619-9bb904979d93 // indirect

@@ -32,26 +32,32 @@ spec:
         resources:
 {{ toYaml .Values.resources | indent 10 }}
         env:
-        - name: NETWORK_IDS
-          valueFrom:
-            configMapKeyRef:
-              name: zerotier-{{ .Values.environment }}-{{ .Release.Name }}
-              key: NETWORK-IDS 
-        - name: ZTHOSTNAME
-          valueFrom:
-            configMapKeyRef:
-              name: zerotier-{{ .Values.environment }}-{{ .Release.Name }}
-              key: ZTHOSTNAME 
-        - name: ZTAUTHTOKEN
-          valueFrom:
-            configMapKeyRef:
-              name: zerotier-{{ .Values.environment }}-{{ .Release.Name }}
-              key: ZTAUTHTOKEN 
-        - name: AUTOJOIN
-          valueFrom:
-            configMapKeyRef:
-              name: zerotier-{{ .Values.environment }}-{{ .Release.Name }}
-              key: AUTOJOIN 
+          - name: HOST_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+          - name: CONSUL
+            value: $(HOST_IP):8500
+          - name: NETWORK_IDS
+            valueFrom:
+              configMapKeyRef:
+                name: zerotier-{{ .Values.environment }}-{{ .Release.Name }}
+                key: NETWORK-IDS
+          - name: ZTHOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                name: zerotier-{{ .Values.environment }}-{{ .Release.Name }}
+                key: ZTHOSTNAME
+          - name: ZTAUTHTOKEN
+            valueFrom:
+              configMapKeyRef:
+                name: zerotier-{{ .Values.environment }}-{{ .Release.Name }}
+                key: ZTAUTHTOKEN
+          - name: AUTOJOIN
+            valueFrom:
+              configMapKeyRef:
+                name: zerotier-{{ .Values.environment }}-{{ .Release.Name }}
+                key: AUTOJOIN
         securityContext:
           privileged: true
           capabilities:
